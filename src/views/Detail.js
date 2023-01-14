@@ -1,4 +1,16 @@
 import { useParams } from "react-router-dom";
+import styled from 'styled-components';
+
+let YellowBtn = styled.button`
+    background : yellow;
+    color : black;
+    padding : 10px;
+`;
+
+let Blackbox = styled.div`
+    background : grey;
+    padding : 20px;
+`
 
 const Detail = (props) => {
     const shoes = props.shoes;
@@ -7,6 +19,9 @@ const Detail = (props) => {
     let getUrl = shoes.find(v => v.id === Number(id));
     return(
         <div className="container">
+            <Blackbox>
+                <YellowBtn>버튼</YellowBtn>
+            </Blackbox>
             <div className="row">
                 <div className="col-md-6">
                     <img src={`https://codingapple1.github.io/shop/shoes${getUrl.id + 1}.jpg`} width="100%" />
