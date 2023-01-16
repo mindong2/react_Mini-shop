@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import shoesData from './data.js'; //src라서 ./
 import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
 import ItemList from'./components/ItemList';
@@ -8,10 +8,16 @@ import NavBar from './components/NavBar';
 import Detail from './views/Detail';
 import About from './views/About';
 import Event from './views/Event';
+import axios from 'axios';
 
 function App() {
-	let [shoes] = useState(shoesData);
+	let [shoes,setShoes] = useState(shoesData);
+	let [btnClicked, setBtnClicked] = useState(1);
 	// let navigation = useNavigate();
+	useEffect(() => {
+		setShoes(shoesData);
+		setBtnClicked(1);
+	},[])
 	return (
 		
 		<div className="App">
@@ -37,6 +43,27 @@ function App() {
 							}
 							</div>
 						</div>
+						<button onClick={() =>{
+							if(btnClicked === 1){
+								axios.get('https://codingapple1.github.io/shop/data2.json')
+								.then((res) => {
+									let resData = [...shoes , ...res.data];
+									setShoes(resData);
+									setBtnClicked(btnClicked + 1);
+								})
+								.catch((err) => console.log(err));
+							}else if(btnClicked === 2){
+								axios.get('https://codingapple1.github.io/shop/data3.json')
+								.then((res) => {
+									let resData = [...shoes , ...res.data];
+									setShoes(resData);
+									setBtnClicked(btnClicked + 1);
+								})
+								.catch((err) => console.log(err));
+							}else{
+								alert(btnClicked)
+							}
+						}}>더보기</button>
 					</div>
 				} />
 
