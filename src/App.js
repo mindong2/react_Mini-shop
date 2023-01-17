@@ -61,7 +61,7 @@ function App() {
 								})
 								.catch((err) => console.log(err));
 							}else{
-								alert(btnClicked)
+								alert('더이상 상품이 없습니다!')
 							}
 						}}>더보기</button>
 					</div>
@@ -84,6 +84,7 @@ function App() {
 				
 				{/* 404page */}
 				<Route path="*" element= { <h1>404 알수없는 페이지입니다</h1> }/>
+			
 			</Routes> 
 		</div>
 	);

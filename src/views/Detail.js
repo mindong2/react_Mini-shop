@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Nav } from "react-bootstrap"
 // import styled from 'styled-components';
 
 // let YellowBtn = styled.button`
@@ -18,16 +19,16 @@ const Detail = (props) => {
     let {id} = useParams();
     // url로 전달받은 id와 data내의 id와 같아야 물건 sorting되었을때도 같다.
     let getUrl = shoes.find(v => v.id === Number(id));
-    let [count, setCount] = useState(0);
+    // let [count, setCount] = useState(0);
     let [alertEvent, setAlertEvent] = useState(true);
-    let [ItemNum, setItemNum] = useState('');
+    // let [ItemNum, setItemNum] = useState('');
+    let [tabNum, setTabNum] = useState(0);
+
     // mount, update시 실행 (렌더링 후 실행)
     useEffect(()=> {
         let timer = setTimeout(() => setAlertEvent(false) , 2000);
-        console.log('2')
         
         return () =>{
-            console.log('1')
             clearTimeout(timer);  // -> useEffect 동작 전에 실행되는 함수 안넣으면 타이머가 너무 많이 생길 수 있다.
         }
     }, []) //dependency가 비어있을땐 mount 시에만 실행된다 (state가 들어있으면 해당 state update시에도 실행)
@@ -65,8 +66,39 @@ const Detail = (props) => {
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
+
+            <Nav variant="tabs"  defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link eventKey="link0" onClick={()=> setTabNum(0)}>버튼0</Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                    <Nav.Link eventKey="link1" onClick={()=> setTabNum(1)}>버튼1</Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                    <Nav.Link eventKey="link2" onClick={()=> setTabNum(2)}>버튼2</Nav.Link>
+                </Nav.Item>
+
+            </Nav>
+
+            <TabCont tabNumber = {tabNum}></TabCont>
+
         </div> 
     )
 }
 
+const TabCont = ({tabNumber}) => {
+    let [fade, setFade] = useState('');
+    useEffect(() => {
+        let fade_event = setTimeout(() => {setFade('end')}, 100)
+        return ()=>{
+            clearTimeout(fade_event)
+            setFade('')
+        }
+    }, [tabNumber])
+    return (<div className = {'start ' + fade}>
+            {[<div>내용0</div>, <div>내용1</div>,<div>내용2</div>][tabNumber]}
+        </div>)
+}
 export default Detail;
