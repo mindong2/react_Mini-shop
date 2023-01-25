@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import shoesData from './data.js'; //src라서 ./
 import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
 import ItemList from'./components/ItemList';
@@ -10,8 +10,11 @@ import About from './views/About';
 import Event from './views/Event';
 import axios from 'axios';
 
+// export let Context1 = createContext();
+
 function App() {
 	let [shoes,setShoes] = useState(shoesData);
+	let [listItem,setItem] = useState([10,11,12]);
 	let [btnClicked, setBtnClicked] = useState(1);
 	// let navigation = useNavigate();
 	useEffect(() => {
@@ -68,7 +71,13 @@ function App() {
 				} />
 
 				{/* detail */}
-				<Route path="/detail/:id" element= { <Detail shoes={shoes}/> }/>
+				<Route path="/detail/:id" element= {
+					// <Context1.Provider value= {{ listItem }}>
+					// 	<Detail shoes={shoes}/>
+					// </Context1.Provider>
+					<Detail shoes={shoes}/>
+
+				}/>
 				
 				{/* about */}
 				<Route path="/about" element= { <About /> }>

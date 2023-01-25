@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap"
+// import { Context1 } from "./../App"
 // import styled from 'styled-components';
 
 // let YellowBtn = styled.button`
@@ -10,6 +11,9 @@ import { Nav } from "react-bootstrap"
 // `;
 
 const Detail = (props) => {
+
+    // let {listItem} = useContext(Context1); //Context 사용
+
     const shoes = props.shoes;
     let {id} = useParams();
     // url로 전달받은 id와 data내의 id와 같아야 물건 sorting되었을때도 같다.
