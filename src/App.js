@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Detail from './views/Detail';
 import About from './views/About';
 import Event from './views/Event';
+import Cart from './views/Cart';
 import axios from 'axios';
 
 // export let Context1 = createContext();
@@ -79,6 +80,8 @@ function App() {
 
 				}/>
 				
+				<Route path='/cart' element={ <Cart />}></Route>
+
 				{/* about */}
 				<Route path="/about" element= { <About /> }>
 					<Route path='member' element ={<div>멤버소개</div>}/>
