@@ -25,18 +25,26 @@ let cart = createSlice({
     ],
     reducers : {
       increaseAge(state, action){
-        // 숙제중.... 
-        if(state.id === action.payload){
-          state.count = state.count + 1;
+        const newState = state.find(v => v.id === action.payload)
+        newState.count += 1;
+      },
+      addItem(state, action) {
+        if(state.find(v => v.id === action.payload.id) !== undefined){
+          alert('이미 장바구니에 있는 상품입니다.');
         }else{
-          console.log(state[0])
+          alert('장바구니에 추가되었습니다!')
+          state.push({
+            id : action.payload.id,
+            name : action.payload.title,
+            count: 1
+          })
         }
       }
     }
 
 })
 
-export let { increaseAge } = cart.actions;
+export let { increaseAge, addItem } = cart.actions;
 
 export default configureStore({
   reducer: {

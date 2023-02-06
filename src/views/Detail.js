@@ -1,6 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap"
+import { addItem } from "../store"
+import { useSelector, useDispatch } from "react-redux";
 // import { Context1 } from "./../App"
 // import styled from 'styled-components';
 
@@ -11,7 +13,8 @@ import { Nav } from "react-bootstrap"
 // `;
 
 const Detail = (props) => {
-
+    let cart = useSelector((state) => state.cart)
+    let dispatch = useDispatch();
     // let {listItem} = useContext(Context1); //Context 사용
 
     const shoes = props.shoes;
@@ -53,7 +56,10 @@ const Detail = (props) => {
                     <h4 className="pt-5">{getUrl.title}</h4>
                     <p>{getUrl.content}</p>
                     <p>{getUrl.price}</p>
-                    <button className="btn btn-danger">주문하기</button> 
+                    <button className="btn btn-danger" onClick={() => {
+                        dispatch(addItem(getUrl));
+                        console.log(cart)
+                    }}>주문하기</button> 
                 </div>
             </div>
 

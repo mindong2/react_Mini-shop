@@ -29,7 +29,7 @@ const Cart = () => {
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.count}</td>
-                                    <td><button onClick={()=>{
+                                    <td><button className='btn btn-sm btn-primary' onClick={()=>{
                                         dispatch(increaseAge(item.id))
                                     }}>+</button></td>
                                 </tr>
