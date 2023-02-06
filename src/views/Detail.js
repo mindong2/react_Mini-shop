@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap"
 import { addItem } from "../store"
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { Context1 } from "./../App"
 // import styled from 'styled-components';
 
@@ -13,7 +13,6 @@ import { useSelector, useDispatch } from "react-redux";
 // `;
 
 const Detail = (props) => {
-    let cart = useSelector((state) => state.cart)
     let dispatch = useDispatch();
     // let {listItem} = useContext(Context1); //Context 사용
 
@@ -24,6 +23,7 @@ const Detail = (props) => {
     let [alertEvent, setAlertEvent] = useState(true);
     let [tabNum, setTabNum] = useState(0);
     let [pageTran,setPageTran] = useState('');
+    
 
     // mount, update시 실행 (렌더링 후 실행)
     useEffect(()=> {
@@ -43,6 +43,16 @@ const Detail = (props) => {
         }
     },[])
 
+    useEffect(() => {
+        let get_watched = localStorage.getItem('watched');
+        
+        get_watched === null ? get_watched = [] : get_watched = JSON.parse(get_watched);
+        get_watched.push(getUrl.title);
+        get_watched = [...new Set(get_watched)];
+        localStorage.setItem('watched', JSON.stringify(get_watched));
+
+    },[])
+
     return(
         <div className={`container start ${pageTran}`}>
             {
@@ -58,7 +68,6 @@ const Detail = (props) => {
                     <p>{getUrl.price}</p>
                     <button className="btn btn-danger" onClick={() => {
                         dispatch(addItem(getUrl));
-                        console.log(cart)
                     }}>주문하기</button> 
                 </div>
             </div>

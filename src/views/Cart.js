@@ -1,6 +1,6 @@
 import {Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseAge } from '../store';
+import { increaseCount, removeItem } from '../store';
 const Cart = () => {
     
     // Redux store 가져와주는 hook
@@ -15,10 +15,11 @@ const Cart = () => {
             <Table>
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>상품명</th>
                         <th>수량</th>
-                        <th>변경하기</th>
+                        <th>수량변경</th>
+                        <th>삭제</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,8 +31,11 @@ const Cart = () => {
                                     <td>{item.name}</td>
                                     <td>{item.count}</td>
                                     <td><button className='btn btn-sm btn-primary' onClick={()=>{
-                                        dispatch(increaseAge(item.id))
+                                        dispatch(increaseCount(item.id))
                                     }}>+</button></td>
+                                    <td><button className='btn btn-sm btn-danger' onClick={()=>{
+                                        dispatch(removeItem(item.id))
+                                    }}>X</button></td>
                                 </tr>
                             )
                         })

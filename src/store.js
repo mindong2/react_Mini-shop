@@ -24,7 +24,7 @@ let cart = createSlice({
         {id : 2, name : 'Grey Yordan', count : 1}
     ],
     reducers : {
-      increaseAge(state, action){
+      increaseCount(state, action){
         const newState = state.find(v => v.id === action.payload)
         newState.count += 1;
       },
@@ -39,18 +39,24 @@ let cart = createSlice({
             count: 1
           })
         }
+      },
+      removeItem(state, action) {
+        const myList = state.find(v => v.id === action.payload);
+        state.splice(myList, 1)
+        
       }
     }
 
 })
 
-export let { increaseAge, addItem } = cart.actions;
+
+export let { increaseCount, addItem, removeItem } = cart.actions;
 
 export default configureStore({
   reducer: {
     // 상위에서 선언한 slice 작명 + 뒤에 reducer
     user : user.reducer,
     stock : stock.reducer,
-    cart : cart.reducer
+    cart : cart.reducer,
   }
 }) 

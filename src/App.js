@@ -1,5 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useSelector } from 'react-redux';
 import { useEffect, useState, createContext } from 'react';
 import shoesData from './data.js'; //src라서 ./
 import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
@@ -15,19 +16,33 @@ import axios from 'axios';
 
 function App() {
 	let [shoes,setShoes] = useState(shoesData);
-	let [listItem,setItem] = useState([10,11,12]);
 	let [btnClicked, setBtnClicked] = useState(1);
+	let watched_items = JSON.parse(localStorage.getItem('watched'));
 	// let navigation = useNavigate();
 	useEffect(() => {
 		setShoes(shoesData);
 		setBtnClicked(1);
-	},[])
+	},[]);
+
+	useEffect(() => {
+		// watched_items === null ? localStorage.setItem('watched', JSON.stringify([])) : null
+	}, [])
+
 	return (
 		
 		<div className="App">
 
 			<NavBar />
-
+			<div className='watched'>
+				<h2>최근 본 상품</h2>
+				<ul>
+					{ watched_items && watched_items.map(v => {
+						return(
+							<li>{ v }</li>
+						)
+					}) }
+				</ul>
+			</div>
 			{/* <button onClick={() => navigation(-1)}>뒤로가기</button> */}
 
 			<Routes>
