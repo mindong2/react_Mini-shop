@@ -10,6 +10,7 @@ import Detail from './views/Detail';
 import About from './views/About';
 import Event from './views/Event';
 import Cart from './views/Cart';
+import Watch from './components/Watch';
 import axios from 'axios';
 
 // export let Context1 = createContext();
@@ -17,7 +18,7 @@ import axios from 'axios';
 function App() {
 	let [shoes,setShoes] = useState(shoesData);
 	let [btnClicked, setBtnClicked] = useState(1);
-	let watched_items = JSON.parse(localStorage.getItem('watched'));
+	
 	// let navigation = useNavigate();
 	useEffect(() => {
 		setShoes(shoesData);
@@ -25,24 +26,14 @@ function App() {
 	},[]);
 
 	useEffect(() => {
-		// watched_items === null ? localStorage.setItem('watched', JSON.stringify([])) : null
-	}, [])
+	}, []);
 
 	return (
 		
 		<div className="App">
 
 			<NavBar />
-			<div className='watched'>
-				<h2>최근 본 상품</h2>
-				<ul>
-					{ watched_items && watched_items.map(v => {
-						return(
-							<li>{ v }</li>
-						)
-					}) }
-				</ul>
-			</div>
+			<Watch />
 			{/* <button onClick={() => navigation(-1)}>뒤로가기</button> */}
 
 			<Routes>
