@@ -12,11 +12,10 @@ import { useDispatch } from "react-redux";
 //     padding : 10px;
 // `;
 
-const Detail = (props) => {
+const Detail = ({shoes}) => {
     let dispatch = useDispatch();
     // let {listItem} = useContext(Context1); //Context 사용
 
-    const shoes = props.shoes;
     let {id} = useParams();
     // url로 전달받은 id와 data내의 id와 같아야 물건 sorting되었을때도 같다.
     let getUrl = shoes.find(v => v.id === Number(id));

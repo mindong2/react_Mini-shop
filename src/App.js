@@ -1,12 +1,13 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { lazy, Suspense, useEffect, useState } from 'react';
-import shoesData from './data.js'; //src라서 ./
+import { useQuery } from 'react-query';
 import { Route, Routes } from 'react-router-dom'
+import axios from 'axios';
+import shoesData from './data.js'; //src라서 ./
 import ItemList from'./components/ItemList';
 import NavBar from './components/NavBar';
-import axios from 'axios';
-import { useQuery } from 'react-query';
+import Watch from './components/Watch';
 
 const Detail = lazy(() => import('./views/Detail.js'));
 const About = lazy(() => import('./views/About.js'));
@@ -18,7 +19,7 @@ const Cart = lazy(() => import('./views/Cart.js'));
 function App() {
 	let [shoes,setShoes] = useState(shoesData);
 	let [btnClicked, setBtnClicked] = useState(1);
-	let watched_items = JSON.parse(localStorage.getItem('watched'));
+	
 	// let navigation = useNavigate();
 	useEffect(() => {
 		setShoes(shoesData);
@@ -26,8 +27,7 @@ function App() {
 	},[]);
 
 	useEffect(() => {
-		// watched_items === null ? localStorage.setItem('watched', JSON.stringify([])) : null
-	}, [])
+	}, []);
 
 	let result = useQuery('userdata', () => 
 		// react-query는 error가 날 경우 재요청
@@ -48,16 +48,8 @@ function App() {
 		<div className="App">
 
 			<NavBar username = { result }></NavBar>
-			<div className='watched'>
-				<h2>최근 본 상품</h2>
-				<ul>
-					{ watched_items && watched_items.map(v => {
-						return(
-							<li>{ v }</li>
-						)
-					}) }
-				</ul>
-			</div>
+
+			<Watch />
 			{/* <button onClick={() => navigation(-1)}>뒤로가기</button> */}
 
 			{/* lazy로 import해올때 약간의 지연이 생기므로 Suspense라는것을 감싸고 fallback은 지연될 동안 보여줄 태그 */}
